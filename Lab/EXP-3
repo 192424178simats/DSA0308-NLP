@@ -1,0 +1,17 @@
+import nltk
+from nltk.stem import PorterStemmer, WordNetLemmatizer
+nltk.download('wordnet', quiet=True)
+stemmer = PorterStemmer()
+lemmatizer = WordNetLemmatizer()
+sentence = "the students are studying intelligent system in university"
+words = nltk.wordpunct_tokenize(sentence)
+print("\nMorphological Analysis")
+print("=" * 45)
+print(f"{'Word':<18}{'Stem':<15}{'Lemma':<12}")
+print("-" * 45)
+for word in words:
+    if word.isalpha():
+        stem = stemmer.stem(word)
+        lemma = lemmatizer.lemmatize(word.lower(), pos='v')
+        print(f"{word:<18}{stem:<15}{lemma:<12}")
+print("=" * 45)
