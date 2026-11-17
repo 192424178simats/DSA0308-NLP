@@ -1,0 +1,22 @@
+
+import nltk
+from nltk import CFG
+from nltk.parse import RecursiveDescentParser
+grammar=CFG.fromstring("""
+S -> NP VP
+NP -> Det N
+VP -> V NP
+Det -> 'the' | 'a' | 'an'
+N -> 'boy' | 'girl' | 'apple'
+V -> 'eats' | 'likes'
+""")
+parser=RecursiveDescentParser(grammar)
+sentence=input("Enter a sentence: ").lower().split()
+trees=list(parser.parse(sentence))
+print("\nPARSE TREE")
+print("-------------------------")
+if trees:
+    for tree in trees:
+        tree.pretty_print()
+else:
+    print("No valid parse tree found")
