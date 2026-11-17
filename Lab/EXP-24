@@ -1,0 +1,31 @@
+
+import nltk
+from nltk.tokenize import word_tokenize
+
+nltk.download('punkt')
+nltk.download('punkt_tab')
+
+print("Enter a conversation (type 'exit' to stop):")
+
+while True:
+    text = input("\nUser: ")
+
+    if text.lower() == "exit":
+        break
+
+    words = word_tokenize(text.lower())
+
+    if any(word in words for word in ["hello", "hi", "hey"]):
+        act = "Greeting"
+    elif text.endswith("?"):
+        act = "Question"
+    elif any(word in words for word in ["please", "kindly"]):
+        act = "Request"
+    elif any(word in words for word in ["bye", "goodbye"]):
+        act = "Farewell"
+    elif any(word in words for word in ["yes", "no", "okay"]):
+        act = "Answer"
+    else:
+        act = "Statement"
+
+    print("Dialog Act:", act)
