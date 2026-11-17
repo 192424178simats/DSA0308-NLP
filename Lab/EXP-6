@@ -1,0 +1,26 @@
+import random
+text = input("Enter a sentence: ").lower()
+words = text.split()
+bigram = {}
+for i in range(len(words) - 1):
+    current_word = words[i]
+    next_word = words[i + 1]
+    if current_word not in bigram:
+        bigram[current_word] = []
+    bigram[current_word].append(next_word)
+print("\nBIGRAM MODEL")
+for word, next_words in bigram.items():
+    print(word, "->", next_words)
+start_word = input("\nEnter starting word: ").lower()
+n = int(input("Enter number of words to generate: "))
+generated_text = [start_word]
+current_word = start_word
+for i in range(n - 1):
+    if current_word in bigram:
+        next_word = random.choice(bigram[current_word])
+        generated_text.append(next_word)
+        current_word = next_word
+    else:
+        break
+print("\nGENERATED TEXT:")
+print(" ".join(generated_text))
