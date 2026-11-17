@@ -1,0 +1,22 @@
+
+import nltk
+from nltk.wsd import lesk
+from nltk.tokenize import word_tokenize
+
+nltk.download('wordnet')
+nltk.download('punkt')
+nltk.download('punkt_tab')
+
+sentence = input("Enter a sentence: ")
+word = input("Enter the ambiguous word: ")
+
+tokens = word_tokenize(sentence)
+
+sense = lesk(tokens, word)
+
+if sense:
+    print("\nWord:", word)
+    print("Meaning:", sense.definition())
+    print("Synset:", sense.name())
+else:
+    print("No meaning found.")
