@@ -1,0 +1,18 @@
+patterns={"the":"DT","a":"DT","is":"VBZ","are":"VBP","was":"VBD","dog":"NN","cat":"NN","students":"NNS","playing":"VBG","running":"VBG","beautiful":"JJ"}
+def transformation_tag(word):
+    tag=patterns.get(word.lower(),"NN")
+    if word.endswith("ing"):
+        tag="VBG"
+    elif word.endswith("s") and word.lower() not in ["is","was"]:
+        tag="NNS"
+    return tag
+text=input("Enter a sentence: ")
+words=text.split()
+print("\nTRANSFORMATION-BASED POS TAGGING")
+print("--------------------------------")
+print("Word\t\tPOS Tag")
+print("--------------------------------")
+for word in words:
+    print(word,"\t\t",transformation_tag(word))
+print("--------------------------------")
+print("Tagging completed successfully!")
