@@ -1,0 +1,35 @@
+
+singular_nouns = ["boy", "girl", "student", "teacher", "apple"]
+plural_nouns = ["boys", "girls", "students", "teachers", "apples"]
+singular_verbs = ["eats", "plays", "runs", "writes", "is"]
+plural_verbs = ["eat", "play", "run", "write", "are"]
+pronouns_s = ["he", "she", "it"]
+pronouns_p = ["they", "we"]
+sentence = input("Enter a sentence: ").lower().replace(".", "").split()
+
+if len(sentence) < 2:
+    print("Invalid sentence")
+else:
+    subject = sentence[0:2]
+    if subject[0] in ["the", "a", "an"] and len(subject) == 2:
+        if subject[1] in singular_nouns:
+            number = "singular"
+        elif subject[1] in plural_nouns:
+            number = "plural"
+        else:
+            number = "invalid"
+    elif subject[0] in pronouns_s:
+        number = "singular"
+    elif subject[0] in pronouns_p:
+        number = "plural"
+    else:
+        number = "invalid"
+
+    verb = sentence[2] if len(sentence) > 2 else sentence[1]
+
+    if number == "singular" and verb in singular_verbs:
+        print("Grammatical Agreement: Valid")
+    elif number == "plural" and verb in plural_verbs:
+        print("Grammatical Agreement: Valid")
+    else:
+        print("Grammatical Agreement: Invalid")
