@@ -1,0 +1,45 @@
+
+def earley_parser(grammar,start,string):
+    words=list(string)
+    n=len(words)
+    chart=[set() for i in range(n+1)]
+    chart[0].add((start,("S",),0,0))
+    for i in range(n+1):
+        changed=True
+        while changed:
+            changed=False
+            for rule in list(chart[i]):
+                lhs,rhs,dot,origin=rule
+                if dot<len(rhs):
+                    next_symbol=rhs[dot]
+                    if next_symbol in grammar:
+                        for production in grammar[next_symbol]:
+                            item=(next_symbol,tuple(production),0,i)
+                            if item not in chart[i]:
+                                chart[i].add(item)
+                                changed=True
+                    elif i<n and words[i]==next_symbol:
+                        chart[i+1].add((lhs,rhs,dot+1,origin))
+                else:
+                    for item in list(chart[origin]):
+                        plhs,prhs,pdot,porigin=item
+                        if pdot<len(prhs) and prhs[pdot]==lhs:
+                            new_item=(plhs,prhs,pdot+1,porigin)
+                            if new_item not in chart[i]:
+                                chart[i].add(new_item)
+                                changed=True
+    return (start,("S",),1,0) in chart[n] if False else any(
+        lhs=="S" and dot==len(rhs) and origin==0
+        for lhs,rhs,dot,origin in chart[n]
+    )
+
+grammar={"S":[["a","S","b"],[]]}
+print("EARLEY PARSER")
+print("-------------------------")
+n=int(input("Enter number of strings: "))
+for i in range(n):
+    string=input("Enter a string: ")
+    if earley_parser(grammar,"S",string):
+        print(string,"is ACCEPTED")
+    else:
+        print(string,"is REJECTED")
