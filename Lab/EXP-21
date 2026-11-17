@@ -1,0 +1,17 @@
+
+import spacy
+
+nlp = spacy.load("en_core_web_sm")
+
+sentence = input("Enter a sentence: ")
+
+doc = nlp(sentence)
+
+print("\nNoun Phrases and Their Meanings:")
+
+for chunk in doc.noun_chunks:
+    print("\nNoun Phrase:", chunk.text)
+    print("Root Word:", chunk.root.text)
+    print("Meaning:", chunk.root.lemma_)
+    print("Part of Speech:", chunk.root.pos_)
+
