@@ -1,0 +1,11 @@
+
+import re
+
+expression = input("Enter a logical expression: ")
+
+pattern = r'^(forall|exists)\s+[a-zA-Z]\s*\(\s*[A-Za-z]+\s*\)\s*(and|or|implies)?\s*(forall|exists)?\s*[a-zA-Z]?\s*\(\s*[A-Za-z]+\s*\)?$'
+
+if re.match(pattern, expression, re.IGNORECASE):
+    print("Valid FOPC Expression")
+else:
+    print("Invalid FOPC Expression")
