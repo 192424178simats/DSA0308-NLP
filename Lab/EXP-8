@@ -1,0 +1,39 @@
+training_data = [
+    [("the", "DT"), ("dog", "NN"), ("barks", "VBZ")],
+    [("the", "DT"), ("cat", "NN"), ("runs", "VBZ")],
+    [("a", "DT"), ("dog", "NN"), ("runs", "VBZ")],
+    [("a", "DT"), ("cat", "NN"), ("barks", "VBZ")]
+]
+word_tag = {}
+for sentence in training_data:
+    for word, tag in sentence:
+        if word not in word_tag:
+            word_tag[word] = {}
+        word_tag[word][tag] = word_tag[word].get(tag, 0) + 1
+transition = {}
+for sentence in training_data:
+    for i in range(len(sentence) - 1):
+        current_tag = sentence[i][1]
+        next_tag = sentence[i + 1][1]
+        if current_tag not in transition:
+            transition[current_tag] = {}
+        transition[current_tag][next_tag] = (
+            transition[current_tag].get(next_tag, 0) + 1
+        )
+text = input("Enter a sentence: ").lower()
+words = text.split()
+print("\nSTOCHASTIC POS TAGGING")
+print("----------------------------")
+previous_tag = None
+for word in words:
+    if word in word_tag:
+        best_tag = max(
+            word_tag[word],
+            key=word_tag[word].get
+        )
+        print(word, " --> ", best_tag)
+        previous_tag = best_tag
+    else:
+        print(word, " --> UNKNOWN")
+print("----------------------------")
+print("POS tagging completed!")
