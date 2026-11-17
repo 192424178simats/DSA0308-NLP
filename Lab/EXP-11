@@ -1,0 +1,20 @@
+grammar={
+"S":["aSb",""]
+}
+def parse_string(string):
+    def check(s):
+        if s=="":
+            return True
+        if s.startswith("a") and s.endswith("b") and len(s)>=2:
+            return check(s[1:-1])
+        return False
+    return check(string)
+print("TOP-DOWN PARSER")
+print("-------------------------")
+n=int(input("Enter number of strings: "))
+for i in range(n):
+    string=input("Enter a string: ")
+    if parse_string(string):
+        print(string,"is ACCEPTED")
+    else:
+        print(string,"is REJECTED")
